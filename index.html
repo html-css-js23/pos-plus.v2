@@ -15,6 +15,14 @@
             margin: 10px;
             text-align: center;
         }
+        .add-to-cart-button {
+            width: 100px;
+            height: 30px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
         #cart {
             margin-top: 20px;
             text-align: center;
@@ -25,13 +33,13 @@
     <div class="product" id="product1">
         <h2>Fresh Juice.ST</h2>
         <p>Price: $5.99</p>
-        <button onclick="addToCart('Fresh Juice.ST')">Add to Cart</button>
+        <button class="add-to-cart-button" onclick="addToCart('Fresh Juice.ST')">Add to Cart</button>
     </div>
     
     <div class="product" id="product2">
         <h2>Fresh Juice.O</h2>
         <p>Price: $6.99</p>
-        <button onclick="addToCart('Fresh Juice.O')">Add to Cart</button>
+        <button class="add-to-cart-button" onclick="addToCart('Fresh Juice.O')">Add to Cart</button>
     </div>
 
     <div id="cart">
@@ -40,27 +48,35 @@
         <button onclick="checkout()">Checkout</button>
     </div>
 
+    <div id="checkout-popup" style="display: none;">
+        <h2>Select Payment Method:</h2>
+        <button onclick="completeCheckout('Cash')">Cash</button>
+        <button onclick="completeCheckout('Card')">Card</button>
+    </div>
+
     <script>
         // JavaScript Functions
         const cartItems = [];
 
         function addToCart(productName) {
             cartItems.push(productName);
-            alert(`${productName} added to cart.`);
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const cartItemList = cartItems.map(item => `<li>${item}</li>`).join('');
+            document.getElementById('cart-items').innerHTML = cartItemList;
         }
 
         function checkout() {
-            const paymentMethod = prompt("Select payment method: Cash or Card?");
-            
-            if (paymentMethod === null) {
-                alert("Checkout canceled.");
-            } else if (paymentMethod.toLowerCase() === "cash" || paymentMethod.toLowerCase() === "card") {
-                const cartItemList = cartItems.map(item => `- ${item}`).join('\n');
-                alert(`Payment method: ${paymentMethod}\n\nItems in Cart:\n${cartItemList}`);
-                cartItems.length = 0; // Clear the cart
-            } else {
-                alert("Invalid payment method. Please choose Cash or Card.");
-            }
+            document.getElementById('checkout-popup').style.display = 'block';
+        }
+
+        function completeCheckout(paymentMethod) {
+            document.getElementById('checkout-popup').style.display = 'none';
+            cartItems.length = 0; // Clear the cart
+            updateCartDisplay();
+            alert(`Payment method: ${paymentMethod}\n\nThank you for your purchase!`);
         }
     </script>
 </body>
