@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POS Plus - Beta1.1A</title>
+    <title>POS Plus - BETA 1.1B</title>
     <style>
         /* CSS Styles */
         body {
@@ -96,17 +96,6 @@
             text-align: center;
             z-index: 4;
         }
-        /* Payment Page Styles */
-        .payment-page {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-        }
-        #total-amount-cash, #total-amount-card {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
@@ -121,7 +110,7 @@
     <div id="cart">
         <h2>Shopping Cart</h2>
         <ul id="checkout-list"></ul>
-        <div id="total-price">Total Price: 0 AED</div>
+        <!-- <div id="total-price">Total Price: 0 AED</div> -->
         <button id="checkout-button" onclick="checkout()">Checkout</button>
     </div>
 
@@ -136,14 +125,16 @@
     <!-- Cash Payment Page -->
     <div class="payment-page" id="cash-page">
         <h2>Total Amount (AED):</h2>
-        <div id="total-amount-cash">0 AED</div>
+        <!-- Remove the total amount display -->
+        <!-- <div id="total-amount-cash">0 AED</div> -->
         <button class="payment-button" onclick="completeCheckout('Cash')">Pay Cash</button>
     </div>
 
     <!-- Card Payment Page -->
     <div class="payment-page" id="card-page">
         <h2>Total Amount (AED):</h2>
-        <div id="total-amount-card">0 AED</div>
+        <!-- Remove the total amount display -->
+        <!-- <div id="total-amount-card">0 AED</div> -->
         <button class="payment-button" onclick="completeCheckout('Card')">Pay Card</button>
     </div>
 
@@ -155,8 +146,6 @@
     <script>
         // JavaScript Functions
         const cartItems = [];
-        let totalAmountCash = 0;
-        let totalAmountCard = 0;
 
         function addToCart(productName, productPrice) {
             cartItems.push({ name: productName, price: productPrice });
@@ -172,16 +161,6 @@
                 listItem.textContent = `${item.name} - ${item.price} AED`;
                 cartList.appendChild(listItem);
             });
-
-            // Calculate and display the total price
-            const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
-            document.getElementById('total-price').textContent = `Total Price: ${totalPrice} AED`;
-
-            // Update total amount on payment pages
-            totalAmountCash = totalPrice;
-            totalAmountCard = totalPrice;
-            document.getElementById('total-amount-cash').textContent = `${totalAmountCash} AED`;
-            document.getElementById('total-amount-card').textContent = `${totalAmountCard} AED`;
         }
 
         function checkout() {
@@ -207,7 +186,8 @@
             console.log('Transaction:');
             console.log('Time: ' + new Date().toLocaleString());
             console.log('Items: ' + cartItems.map(item => item.name).join(', '));
-            console.log('Total Price: ' + cartItems.reduce((total, item) => total + item.price, 0) + ' AED');
+            // Remove the total price from the console log
+            // console.log('Total Price: ' + cartItems.reduce((total, item) => total + item.price, 0) + ' AED');
             console.log('Payment Method: ' + paymentMethod);
 
             cartItems.length = 0; // Clear the cart
@@ -220,8 +200,8 @@
             }, 2000); // Hide the prompt after 2 seconds (2000 milliseconds)
 
             // Reset total amounts
-            totalAmountCash = 0;
-            totalAmountCard = 0;
+            // totalAmountCash = 0;
+            // totalAmountCard = 0;
             
             // Hide the payment pages
             document.getElementById('cash-page').style.display = 'none';
