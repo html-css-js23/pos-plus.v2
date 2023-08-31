@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POS Plus - BETA1</title>
+    <title>Simple POS System</title>
     <style>
         /* CSS Styles */
         body {
@@ -152,4 +152,25 @@
         }
 
         function completeCheckout(paymentMethod) {
-            document.getElementById('checkout-overlay').style.display =
+            document.getElementById('checkout-overlay').style.display = 'none';
+            document.getElementById('checkout-popup').style.display = 'none';
+
+            // Log the transaction to the console
+            console.log('Transaction:');
+            console.log('Time: ' + new Date().toLocaleString());
+            console.log('Items: ' + cartItems.map(item => item.name).join(', '));
+            console.log('Total Price: ' + cartItems.reduce((total, item) => total + item.price, 0) + ' AED');
+            console.log('Payment Method: ' + paymentMethod);
+
+            cartItems.length = 0; // Clear the cart
+            updateCartDisplay();
+
+            // Display the custom prompt for "Transaction Successful"
+            document.getElementById('custom-prompt').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('custom-prompt').style.display = 'none';
+            }, 2000); // Hide the prompt after 2 seconds (2000 milliseconds)
+        }
+    </script>
+</body>
+</html>
