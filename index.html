@@ -3,107 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POS Plus</title>
+    <title>POS Plus - V2</title>
     <style>
         /* CSS Styles */
         body {
             font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: row;
         }
         .product {
             border: 1px solid #ccc;
             padding: 10px;
             margin: 10px;
             text-align: center;
-        }
-        .add-to-cart-button {
-            width: 100px;
-            height: 30px;
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
             background-color: blue;
             color: white;
-            border: none;
             cursor: pointer;
         }
         #cart {
             margin-top: 20px;
             text-align: center;
+            margin-left: auto;
+            padding-right: 20px;
         }
-        /* Checkout Popup Styles */
-        #checkout-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 2;
+        /* Checkout List Styles */
+        #checkout-list {
+            list-style: none;
+            padding: 0;
         }
-        #checkout-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            z-index: 3;
+        .checkout-item {
+            border: 1px solid #ccc;
+            margin: 10px 0;
+            padding: 5px;
+            border-radius: 5px;
         }
-        .payment-button {
-            width: 100px;
-            height: 100px;
+        /* Checkout Button Styles */
+        #checkout-button {
+            width: 150px;
+            height: 50px;
             background-color: blue;
             color: white;
             border: none;
             cursor: pointer;
-            margin: 10px;
             border-radius: 10px;
-        }
-        /* Custom Prompt Styles */
-        #custom-prompt {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            z-index: 4;
         }
     </style>
 </head>
 <body>
-    <div class="product" id="product1">
+    <div class="product" id="product1" onclick="addToCart('Fresh Juice.ST', 4)">
         <h2>Fresh Juice.ST</h2>
-        <p>Price: 4 AED</p>
-        <button class="add-to-cart-button" onclick="addToCart('Fresh Juice.ST', 4)">Add to Cart</button>
     </div>
     
-    <div class="product" id="product2">
+    <div class="product" id="product2" onclick="addToCart('Fresh Juice.O', 4)">
         <h2>Fresh Juice.O</h2>
-        <p>Price: 4 AED</p>
-        <button class="add-to-cart-button" onclick="addToCart('Fresh Juice.O', 4)">Add to Cart</button>
     </div>
 
     <div id="cart">
         <h2>Shopping Cart</h2>
-        <ul id="cart-items"></ul>
-        <button onclick="checkout()">Checkout</button>
-    </div>
-
-    <div id="checkout-overlay"></div>
-    <div id="checkout-popup">
-        <h2>Select Payment Method:</h2>
-        <button class="payment-button" onclick="completeCheckout('Cash')">Cash</button>
-        <button class="payment-button" onclick="completeCheckout('Card')">Card</button>
-    </div>
-
-    <!-- Custom Prompt -->
-    <div id="custom-prompt">
-        <h2>Transaction Successful</h2>
+        <ul id="checkout-list"></ul>
+        <button id="checkout-button" onclick="checkout()">Checkout</button>
     </div>
 
     <script>
@@ -116,34 +77,18 @@
         }
 
         function updateCartDisplay() {
-            const cartItemList = cartItems.map(item => `<li>${item.name} - ${item.price} AED</li>`).join('');
-            document.getElementById('cart-items').innerHTML = cartItemList;
+            const cartList = document.getElementById('checkout-list');
+            cartList.innerHTML = '';
+            cartItems.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.classList.add('checkout-item');
+                listItem.textContent = `${item.name} - ${item.price} AED`;
+                cartList.appendChild(listItem);
+            });
         }
 
         function checkout() {
-            document.getElementById('checkout-overlay').style.display = 'block';
-            document.getElementById('checkout-popup').style.display = 'block';
-        }
-
-        function completeCheckout(paymentMethod) {
-            document.getElementById('checkout-overlay').style.display = 'none';
-            document.getElementById('checkout-popup').style.display = 'none';
-
-            // Log the transaction to the console
-            console.log('Transaction:');
-            console.log('Time: ' + new Date().toLocaleString());
-            console.log('Items: ' + cartItems.map(item => item.name).join(', '));
-            console.log('Total Price: ' + cartItems.reduce((total, item) => total + item.price, 0) + ' AED');
-            console.log('Payment Method: ' + paymentMethod);
-
-            cartItems.length = 0; // Clear the cart
-            updateCartDisplay();
-
-            // Display the custom prompt for "Transaction Successful"
-            document.getElementById('custom-prompt').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('custom-prompt').style.display = 'none';
-            }, 2000); // Hide the prompt after 2 seconds (2000 milliseconds)
+            alert('Checkout button clicked!'); // Add your checkout logic here
         }
     </script>
 </body>
