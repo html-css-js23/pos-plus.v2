@@ -59,6 +59,20 @@
             margin: 10px;
             border-radius: 10px;
         }
+        /* Custom Prompt Styles */
+        #custom-prompt {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 4;
+        }
     </style>
 </head>
 <body>
@@ -85,6 +99,11 @@
         <h2>Select Payment Method:</h2>
         <button class="payment-button" onclick="completeCheckout('Cash')">Cash</button>
         <button class="payment-button" onclick="completeCheckout('Card')">Card</button>
+    </div>
+
+    <!-- Custom Prompt -->
+    <div id="custom-prompt">
+        <h2>Transaction Successful</h2>
     </div>
 
     <script>
@@ -120,8 +139,11 @@
             cartItems.length = 0; // Clear the cart
             updateCartDisplay();
 
-            // Show a prompt for "Transaction Successful"
-            alert('Transaction Successful');
+            // Display the custom prompt for "Transaction Successful"
+            document.getElementById('custom-prompt').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('custom-prompt').style.display = 'none';
+            }, 2000); // Hide the prompt after 2 seconds (2000 milliseconds)
         }
     </script>
 </body>
