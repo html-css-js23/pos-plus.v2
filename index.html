@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple POS System</title>
+    <title>POS Plus - Beta1.1A</title>
     <style>
         /* CSS Styles */
         body {
@@ -102,8 +102,10 @@
             flex-direction: column;
             align-items: center;
         }
-        #total-amount {
+        #total-amount-cash, #total-amount-card {
             margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -133,15 +135,15 @@
 
     <!-- Cash Payment Page -->
     <div class="payment-page" id="cash-page">
-        <h2>Enter Total Amount (AED):</h2>
-        <input type="number" id="total-amount" min="0">
+        <h2>Total Amount (AED):</h2>
+        <div id="total-amount-cash">0 AED</div>
         <button class="payment-button" onclick="completeCheckout('Cash')">Pay Cash</button>
     </div>
 
     <!-- Card Payment Page -->
     <div class="payment-page" id="card-page">
-        <h2>Enter Total Amount (AED):</h2>
-        <input type="number" id="total-amount" min="0">
+        <h2>Total Amount (AED):</h2>
+        <div id="total-amount-card">0 AED</div>
         <button class="payment-button" onclick="completeCheckout('Card')">Pay Card</button>
     </div>
 
@@ -153,6 +155,8 @@
     <script>
         // JavaScript Functions
         const cartItems = [];
+        let totalAmountCash = 0;
+        let totalAmountCard = 0;
 
         function addToCart(productName, productPrice) {
             cartItems.push({ name: productName, price: productPrice });
@@ -172,6 +176,12 @@
             // Calculate and display the total price
             const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
             document.getElementById('total-price').textContent = `Total Price: ${totalPrice} AED`;
+
+            // Update total amount on payment pages
+            totalAmountCash = totalPrice;
+            totalAmountCard = totalPrice;
+            document.getElementById('total-amount-cash').textContent = `${totalAmountCash} AED`;
+            document.getElementById('total-amount-card').textContent = `${totalAmountCard} AED`;
         }
 
         function checkout() {
@@ -209,8 +219,9 @@
                 document.getElementById('custom-prompt').style.display = 'none';
             }, 2000); // Hide the prompt after 2 seconds (2000 milliseconds)
 
-            // Clear the total amount input field
-            document.getElementById('total-amount').value = '';
+            // Reset total amounts
+            totalAmountCash = 0;
+            totalAmountCard = 0;
             
             // Hide the payment pages
             document.getElementById('cash-page').style.display = 'none';
