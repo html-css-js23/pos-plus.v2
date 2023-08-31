@@ -64,14 +64,14 @@
 <body>
     <div class="product" id="product1">
         <h2>Fresh Juice.ST</h2>
-        <p>Price: $5.99</p>
-        <button class="add-to-cart-button" onclick="addToCart('Fresh Juice.ST')">Add to Cart</button>
+        <p>Price: 4 AED</p>
+        <button class="add-to-cart-button" onclick="addToCart('Fresh Juice.ST', 4)">Add to Cart</button>
     </div>
     
     <div class="product" id="product2">
         <h2>Fresh Juice.O</h2>
-        <p>Price: $6.99</p>
-        <button class="add-to-cart-button" onclick="addToCart('Fresh Juice.O')">Add to Cart</button>
+        <p>Price: 4 AED</p>
+        <button class="add-to-cart-button" onclick="addToCart('Fresh Juice.O', 4)">Add to Cart</button>
     </div>
 
     <div id="cart">
@@ -91,13 +91,13 @@
         // JavaScript Functions
         const cartItems = [];
 
-        function addToCart(productName) {
-            cartItems.push(productName);
+        function addToCart(productName, productPrice) {
+            cartItems.push({ name: productName, price: productPrice });
             updateCartDisplay();
         }
 
         function updateCartDisplay() {
-            const cartItemList = cartItems.map(item => `<li>${item}</li>`).join('');
+            const cartItemList = cartItems.map(item => `<li>${item.name} - ${item.price} AED</li>`).join('');
             document.getElementById('cart-items').innerHTML = cartItemList;
         }
 
@@ -109,9 +109,15 @@
         function completeCheckout(paymentMethod) {
             document.getElementById('checkout-overlay').style.display = 'none';
             document.getElementById('checkout-popup').style.display = 'none';
+
+            // Log the transaction to the console
+            console.log('Transaction:');
+            console.log('Time: ' + new Date().toLocaleString());
+            console.log('Items: ' + cartItems.map(item => item.name).join(', '));
+            console.log('Total Price: ' + cartItems.reduce((total, item) => total + item.price, 0) + ' AED');
+
             cartItems.length = 0; // Clear the cart
             updateCartDisplay();
-            // You can perform further actions here instead of using alerts.
         }
     </script>
 </body>
