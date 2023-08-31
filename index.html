@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple POS System</title>
+    <style>
+        /* CSS Styles */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+        }
+        #cart {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="product" id="product1">
+        <h2>Fresh Juice.ST</h2>
+        <p>Price: $5.99</p>
+        <button onclick="addToCart('Fresh Juice.ST')">Add to Cart</button>
+    </div>
+    
+    <div class="product" id="product2">
+        <h2>Fresh Juice.O</h2>
+        <p>Price: $6.99</p>
+        <button onclick="addToCart('Fresh Juice.O')">Add to Cart</button>
+    </div>
+
+    <div id="cart">
+        <h2>Shopping Cart</h2>
+        <ul id="cart-items"></ul>
+        <button onclick="checkout()">Checkout</button>
+    </div>
+
+    <script>
+        // JavaScript Functions
+        const cartItems = [];
+
+        function addToCart(productName) {
+            cartItems.push(productName);
+            alert(`${productName} added to cart.`);
+        }
+
+        function checkout() {
+            const paymentMethod = prompt("Select payment method: Cash or Card?");
+            
+            if (paymentMethod === null) {
+                alert("Checkout canceled.");
+            } else if (paymentMethod.toLowerCase() === "cash" || paymentMethod.toLowerCase() === "card") {
+                const cartItemList = cartItems.map(item => `- ${item}`).join('\n');
+                alert(`Payment method: ${paymentMethod}\n\nItems in Cart:\n${cartItemList}`);
+                cartItems.length = 0; // Clear the cart
+            } else {
+                alert("Invalid payment method. Please choose Cash or Card.");
+            }
+        }
+    </script>
+</body>
+</html>
