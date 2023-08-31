@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POS Plus</title>
+    <title>Simple POS System</title>
     <style>
         /* CSS Styles */
         body {
@@ -115,9 +115,13 @@
             console.log('Time: ' + new Date().toLocaleString());
             console.log('Items: ' + cartItems.map(item => item.name).join(', '));
             console.log('Total Price: ' + cartItems.reduce((total, item) => total + item.price, 0) + ' AED');
+            console.log('Payment Method: ' + paymentMethod);
 
             cartItems.length = 0; // Clear the cart
             updateCartDisplay();
+
+            // Show a prompt for "Transaction Successful"
+            alert('Transaction Successful');
         }
     </script>
 </body>
