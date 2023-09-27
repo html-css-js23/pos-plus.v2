@@ -10,6 +10,7 @@
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: row;
+            flex-wrap: wrap; /* Added flex-wrap to allow multiple rows */
         }
         .product {
             border: 1px solid #ccc;
@@ -106,6 +107,7 @@
     </style>
 </head>
 <body>
+    <!-- First Row -->
     <div class="product" id="product1" onclick="addToCart('Fresh Juice.ST', 4)">
         <h2>Fresh Juice.ST</h2>
     </div>
@@ -124,6 +126,27 @@
 
     <div class="product" id="product5" onclick="addToCart('Bacon', 6)">
         <h2>Bacon</h2>
+    </div>
+
+    <!-- Second Row -->
+    <div class="product" id="product6" onclick="addToCart('Item 6', 10)">
+        <h2>Item 6</h2>
+    </div>
+
+    <div class="product" id="product7" onclick="addToCart('Item 7', 12)">
+        <h2>Item 7</h2>
+    </div>
+
+    <div class="product" id="product8" onclick="addToCart('Item 8', 8)">
+        <h2>Item 8</h2>
+    </div>
+
+    <div class="product" id="product9" onclick="addToCart('Item 9', 15)">
+        <h2>Item 9</h2>
+    </div>
+
+    <div class="product" id="product10" onclick="addToCart('Item 10', 9)">
+        <h2>Item 10</h2>
     </div>
 
     <div id="cart">
@@ -180,18 +203,18 @@
 
             console.log('Transaction:');
             console.log('Time: ' + new Date().toLocaleString());
-            console.log('Items: ' + cartItems.map(item => item.name).join(', '));
-            console.log('Total Price: ' + cartItems.reduce((total, item) => total + item.price, 0) + ' AED');
-            console.log('Payment Method: ' + paymentMethod);
+                    console.log('Items: ' + cartItems.map(item => item.name).join(', '));
+        console.log('Total Price: ' + cartItems.reduce((total, item) => total + item.price, 0) + ' AED');
+        console.log('Payment Method: ' + paymentMethod);
 
-            cartItems.length = 0;
-            updateCartDisplay();
+        cartItems.length = 0;
+        updateCartDisplay();
 
-            document.getElementById('custom-prompt').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('custom-prompt').style.display = 'none';
-            }, 2000);
-        }
-    </script>
+        document.getElementById('custom-prompt').style.display = 'block';
+        setTimeout(() => {
+            document.getElementById('custom-prompt').style.display = 'none';
+        }, 2000);
+    }
+</script>
 </body>
 </html>
